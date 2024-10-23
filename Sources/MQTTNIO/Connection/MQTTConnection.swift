@@ -285,7 +285,7 @@ final class MQTTConnection: MQTTErrorHandlerDelegate, MQTTFallbackPacketHandlerD
         ).base64EncodedString()
         
         let upgrader = NIOWebSocketClientUpgrader(
-            requestKey: requestKey
+            requestKey: requestKey, maxFrameSize: 2 * 1024 * 1024
         ) { channel, _ in
             let future = channel.pipeline.addHandler(WebSocketHandler()).flatMap {
                 completionHandler(channel)
